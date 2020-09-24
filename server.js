@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -35,10 +34,8 @@ app.post("/api/notes", (req, res) => {
 
 app.delete("/api/notes/:id", (req, res) => {
   const id = req.params.id;
-  console.log("hit");
   let notes = JSON.parse(fs.readFileSync("db/db.json"));
   notes = notes.filter(note => note.id !== id);
-  console.log(notes);
   fs.writeFileSync("db/db.json", JSON.stringify(notes));
   res.sendStatus(200);
 });
